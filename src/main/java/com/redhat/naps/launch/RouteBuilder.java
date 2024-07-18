@@ -35,9 +35,10 @@ public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("timer:send-mllp?delay=-1&repeatCount=1")
+                .setHeader("PATIENT_LOC",hl7terser("PV1-3")) 
                 .routeId("FromTimer2MLLP")
                 .setBody(simple(getHL7Message()))
-                .log(hl7terser("PV1-3"))
+                .log(header("PATIENT_LOC")
                 .to("log:before?showAll=true&multiline=true")
                 .to("mllp://{{mllp.ip}}:{{mllp.port}}")
                 .log("Message sent via MLLP to {{mllp.ip}}:{{mllp.port}}")
