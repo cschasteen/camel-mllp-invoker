@@ -28,7 +28,7 @@ public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
     public static String getHL7Message() {
         String tmpMessage = hl7MessageTemplate.replaceFirst("<MESSAGE_TIMESTAMP>", timestampFormat.format(new Date()));
         tmpMessage = hl7MessageTemplate.replaceFirst("<LOCATION_VAR>","{{mllp.patlocation}}");
-        log(tmpMessage);
+        log.i(tmpMessage);
         return tmpMessage.replaceFirst("<MESSAGE_CONTROL_ID>", String.format("%05d", 1));
     }
 
