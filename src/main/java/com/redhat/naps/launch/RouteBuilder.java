@@ -4,6 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import static org.apache.camel.component.hl7.HL7.hl7terser;
 
 @ApplicationScoped
 public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
@@ -36,6 +37,7 @@ public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
         from("timer:send-mllp?delay=-1&repeatCount=1")
                 .routeId("FromTimer2MLLP")
                 .setBody(simple(getHL7Message()))
+                .log(hl7terser("PV1-3"))
                 .to("log:before?showAll=true&multiline=true")
                 .to("mllp://{{mllp.ip}}:{{mllp.port}}")
                 .log("${body}")
