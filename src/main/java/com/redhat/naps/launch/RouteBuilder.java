@@ -41,7 +41,7 @@ public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
                 .log("${body}")
                 .log("The body should be showing up right here but its not")
                 .log("Message sent via MLLP to {{mllp.ip}}:{{mllp.port}}")
-                .log("Received Type - ${header.CamelMllpAcknowledgementType}")
+                .log("TEST Received Type - ${header.CamelMllpAcknowledgementType}")
                 .log("Received - ${header.CamelMllpAcknowledgementString}")
                 .to("log:after?showAll=true&multiline=true");
     }
