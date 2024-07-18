@@ -36,6 +36,7 @@ public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
         from("timer:send-mllp?delay=-1&repeatCount=1")
                 .routeId("FromTimer2MLLP")
                 .setBody(simple(getHL7Message()))
+                .log("${Body}")
                 .to("log:before?showAll=true&multiline=true")
                 .to("mllp://{{mllp.ip}}:{{mllp.port}}")
                 .log("Message sent via MLLP to {{mllp.ip}}:{{mllp.port}}")
