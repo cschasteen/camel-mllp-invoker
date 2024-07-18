@@ -28,6 +28,7 @@ public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
     public static String getHL7Message() {
         String tmpMessage = hl7MessageTemplate.replaceFirst("<MESSAGE_TIMESTAMP>", timestampFormat.format(new Date()));
         tmpMessage = hl7MessageTemplate.replaceFirst("<LOCATION_VAR>","{{mllp.patlocation}}");
+        log(tmpMessage);
         return tmpMessage.replaceFirst("<MESSAGE_CONTROL_ID>", String.format("%05d", 1));
     }
 
@@ -36,7 +37,6 @@ public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
         from("timer:send-mllp?delay=-1&repeatCount=1")
                 .routeId("FromTimer2MLLP")
                 .setBody(simple(getHL7Message()))
-                .log("${Body}")
                 .to("log:before?showAll=true&multiline=true")
                 .to("mllp://{{mllp.ip}}:{{mllp.port}}")
                 .log("Message sent via MLLP to {{mllp.ip}}:{{mllp.port}}")
