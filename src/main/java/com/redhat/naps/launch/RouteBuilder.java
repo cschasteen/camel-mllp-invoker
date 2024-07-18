@@ -14,7 +14,7 @@ public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
             + "PID|1||ICE999999^^^ICE^ICE||Testpatient^Testy^^^Mr||19740401|M|||123 Barrel Drive^^^^SW18 4RT|||||2||||||||||||||"
             + '\r'
             + "NTE|1||Free text for entering clinical details|" + '\r'
-            + "PV1|1||^^^^^^^^Admin Location|||||||||||||||NHS|" + '\r'
+            + "PV1|1||^^^^^^^^<LOCATION_VAR>|||||||||||||||NHS|" + '\r'
             + "ORC|NW|213||175|REQ||||20080808093202|ahsl^^Administrator||G999999^TestDoctor^GPtests^^^^^^NAT|^^^^^^^^Admin Location | 819600|200808080932||RTH00||ahsl^^Administrator||"
             + '\r'
             + "OBR|1|213||CCOR^Serum Cortisol ^ JRH06|||200808080932||0.100||||||^|G999999^TestDoctor^GPtests^^^^^^NAT|819600|ADM162||||||820|||^^^^^R||||||||"
@@ -27,6 +27,7 @@ public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
 
     public static String getHL7Message() {
         String tmpMessage = hl7MessageTemplate.replaceFirst("<MESSAGE_TIMESTAMP>", timestampFormat.format(new Date()));
+        String tmpMessage = hl7MessageTemplate.replaceFirst("<LOCATION_VAR>",{{mllp.patlocation}});
         return tmpMessage.replaceFirst("<MESSAGE_CONTROL_ID>", String.format("%05d", 1));
     }
 
