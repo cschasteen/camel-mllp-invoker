@@ -38,7 +38,7 @@ public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
                 .setHeader("PATIENT_LOC",hl7terser("PV1-3")) 
                 .routeId("FromTimer2MLLP")
                 .setBody(simple(getHL7Message()))
-                .log(header("PATIENT_LOC")
+                .log(header("PATIENT_LOC"))
                 .to("log:before?showAll=true&multiline=true")
                 .to("mllp://{{mllp.ip}}:{{mllp.port}}")
                 .log("Message sent via MLLP to {{mllp.ip}}:{{mllp.port}}")
