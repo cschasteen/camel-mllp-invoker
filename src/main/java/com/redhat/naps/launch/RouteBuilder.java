@@ -43,6 +43,9 @@ public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("timer:send-mllp?delay=-1&repeatCount=1")
+                .log("=============This is the most up to date MIH code==============")
+                .log("=============This is the most up to date MIH code==============")
+                .log("=============This is the most up to date MIH code==============")
                 .routeId("FromTimer2MLLP")
                 .setBody(simple(getHL7Message()))
                 .to("log:before?showAll=true&multiline=true")
